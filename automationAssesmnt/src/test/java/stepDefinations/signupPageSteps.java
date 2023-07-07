@@ -97,11 +97,7 @@ public class signupPageSteps {
 
     @When("the password and confirm password fields do not match")
     public void mismatchedPasswords() {
-        // Enter valid first name, last name, email, and mismatched passwords
-        driver.findElement(By.id("input-firstname")).sendKeys("John");
-        driver.findElement(By.id("input-lastname")).sendKeys("Doe");
-        driver.findElement(By.id("input-email")).sendKeys("john.doe@example.com");
-        driver.findElement(By.id("input-telephone")).sendKeys(generateRandomnumber(10));
+        // Enter mismatched passwords
         driver.findElement(By.id("input-password")).sendKeys("password123");
         driver.findElement(By.id("input-confirm")).sendKeys("password456");
         driver.findElement(By.cssSelector("input[type='checkbox'][name='agree']")).click(); // Check privacy policy checkbox
@@ -128,7 +124,8 @@ public class signupPageSteps {
     }
 
     @Then("I should see an error message")
-    public void verifyErrorMessage() throws IOException {
+    public void verifyErrorMessage() throws InterruptedException, IOException {
+        Thread.sleep(2000);
         WebElement errorMessage = driver.findElement(By.cssSelector(".alert-danger"));
         assert errorMessage.isDisplayed();
 
